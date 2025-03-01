@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>ToyStore</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html"><strong>toystore</strong></a>
+            </div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#item">Item</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>            
+    </header>
+
+    <!-- Cover Page -->
+    <div class="cover" id="home">
+        <div>
+            <h1>Welcome to ToyStore!</h1>
+            <p>Your one-stop shop for fun and joy! 🎁</p>
+            <a href="#item" class="btn">Explore More</a>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Us</h2>
+        <p>We are a family-owned toy store dedicated to bringing joy to children and families. Our mission is to provide high-quality, safe, and fun toys for kids of all ages. We carefully select each toy to ensure it meets our high standards of quality and safety. Our friendly staff is always here to help you find the perfect toy for any occasion. We believe in the power of play to inspire creativity, learning, and happiness. Visit us today and discover a world of fun and imagination!</p>
+    </section>
+
+    <!-- Item Section -->
+    <section id="item">
+        <h2>Our Items</h2>
+        <p>Check out our wide range of toys, including action figures, dolls, educational toys, and more!</p>
+        
+        <!-- Toy Store Integration -->
+        <div id="toys-container"></div>
+        <a href="cart.html" class="cart-link">Go to Cart</a>
+    </section>
+
+
+
+    <script>
+        class ToyStore {
+            constructor() {
+                this.toys = [
+                    { name: "iron man lego", price: 10, image: "https://www.bricksandfigures.com.au/cdn/shop/files/57_176ba92f-d930-4636-b5ed-1ed935373f3c.jpg?v=1719744132" },
+                    { name: " tanjiro figurine", price: 15, image: "https://m.media-amazon.com/images/I/81APJCYZhzL._AC_UF1000,1000_QL80_.jpg" },
+                    { name: " cinammon plushie", price: 20, image: "https://globoloon.com/wp-content/uploads/2024/03/original-145-jpeg.webp" },
+                    { name: "gundam figurine", price: 30, image: "https://m.media-amazon.com/images/I/61LvO5vbvnL._AC_SL1324_.jpg" },
+                    { name: "hello kitty", price: 40, image: "https://www.sanrio.com/cdn/shop/files/zz-2403874027_KT_--1_800x.jpg?v=1720539762" },
+                    { name: "gojo action figure", price: 50, image: "https://onlyfigure.com/cdn/shop/files/jujutsu-kaisen-dai-2-ki-gojou-satoru-ichiban-kuji-kaigyoku-gyokusetsu-1-last-one-ver-onlyfigure-41232727900415.jpg?v=1706162746&width=533" },
+                    { name: "spider man lego", price: 15, image: "https://i.ebayimg.com/00/s/MTQ0MFgxMTk2/z/1UwAAOSwkUFhdrDe/$_57.JPG?set_id=8800005007" },
+                    { name: "sukuna plushie", price: 35, image: "https://125092012.cdn6.editmysite.com/uploads/1/2/5/0/125092012/s609453913931788681_p3001_i2_w500.jpeg" },
+                    { name: "miku figurine", price: 60, image: "https://s.pacn.ws/1/p/13q/piapro-characters-18--scale-prepainted-figure-hatsune-miku-nt-715421.1.jpg?v=raizjf" }
+                ];
+                this.cart = JSON.parse(localStorage.getItem("cart")) || [];
+                this.displayToys();
+            }
+
+            displayToys() {
+                const container = document.getElementById("toys-container");
+                if (!container) {
+                    console.error("Toys container not found!");
+                    return;
+                }
+                container.innerHTML = this.toys.map((toy, index) => `
+                    <div class="toy">
+                        <img src="${toy.image}" alt="${toy.name}">
+                        <h3>${toy.name}</h3>
+                        <p>Price: ₱${toy.price}</p>
+                        <button class="add-to-cart" data-index="${index}">Add to Cart</button>
+                    </div>
+                `).join('');
+
+                container.addEventListener("click", (event) => {
+                    if (event.target.classList.contains("add-to-cart")) {
+                        const index = event.target.getAttribute("data-index");
+                        this.addToCart(index);
+                    }
+                });
+            }
+
+            addToCart(index) {
+                this.cart.push(this.toys[index]);
+                localStorage.setItem("cart", JSON.stringify(this.cart));
+                alert(`${this.toys[index].name} added to cart!`);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            new ToyStore();
+        });
+        
+        
+const sections = document.querySelectorAll("section");
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });        
+    </script>
+    
+</body>
+</html>

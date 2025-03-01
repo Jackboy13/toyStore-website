@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html">Toy Store</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="index.html">Item</a></li>
+            </ul>            
+        </nav>
+    </header>
+
+    <section>
+        <h2>Shopping Cart</h2>
+
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="cart-table-body"></tbody>
+        </table>
+
+        <p id="cart-total" class="cart-total">Total: $0</p>
+
+        <div class="cart-actions">
+            <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
+            <button class="buy-all-btn" onclick="buyAll()">Buy All</button>
+        </div>
+
+        <a href="index.html" class="cart-link">Back to Store</a>
+    </section>
+
+<script>
+    class Cart {
+        constructor() {
+            this.cart = JSON.parse(localStorage.getItem("cart")) || [];
+            this.displayCart();
+        }
+
+        displayCart() {
+            const cartTable = document.getElementById("cart-table-body");
+            const totalPrice = this.cart.reduce((sum, item) => sum + item.price, 0);
+
+            cartTable.innerHTML = this.cart.map((item, index) => `
+                <tr>
+                    <td><img src="${item.image}" class="cart-img"></td>
+                    <td>${item.name}</td>
+                    <td>$${item.price}</td>
+                    <td><button class="remove-item" data-index="${index}">Remove</button></td>
+                </tr>
+            `).join('');
+
+            document.getElementById("cart-total").innerText = `Total: $${totalPrice}`;
+
+            document.querySelectorAll(".remove-item").forEach(button => {
+                button.addEventListener("click", (event) => {
+                    const index = event.target.getAttribute("data-index");
+                    this.removeItem(index);
+                });
+            });
+        }
+
+        removeItem(index) {
+            this.cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(this.cart));
+            this.displayCart();
+        }
+
+        clearCart() {
+            localStorage.removeItem("cart");
+            this.cart = [];
+            this.displayCart();
+        }
+
+        buyAll() {
+            if (this.cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+            alert("Purchase successful!");
+            this.clearCart();
+        }
+    }
+
+    const myCart = new Cart();
+
+    function clearCart() {
+        myCart.clearCart();
+    }
+
+    function buyAll() {
+        myCart.buyAll();
+    }
+</script>
+</body>
+</html>
