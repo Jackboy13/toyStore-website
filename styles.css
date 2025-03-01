@@ -228,5 +228,6 @@ section p {
 }
 
 .cart-link:hover {
-    background-color: #0056b3;
+    background-color: #ff3366;
+    border-radius: 5px;
 }
