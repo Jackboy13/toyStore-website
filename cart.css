@@ -18,7 +18,6 @@ section {
 }
 
 h2 {
-    font-family: 'Poppins', sans-serif;
     font-size: 2.5rem;
     margin-bottom: 20px;
     color: #ff3366;
@@ -31,7 +30,6 @@ h2 {
 }
 
 .cart-table th, .cart-table td {
-    font-family: 'Poppins', sans-serif;
     padding: 12px;
     text-align: center;
     border: 1px solid #ddd;
