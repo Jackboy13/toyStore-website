@@ -18,6 +18,7 @@ section {
 }
 
 h2 {
+    font-family: 'Poppins', sans-serif;
     font-size: 2.5rem;
     margin-bottom: 20px;
     color: #ff3366;
@@ -50,6 +51,7 @@ h2 {
 }
 
 .cart-actions button {
+    font-family: 'Poppins', sans-serif;
     background-color: #ff3366;
     color: #fff;
     border: none;
@@ -66,12 +68,14 @@ h2 {
 }
 
 .cart-total {
+    font-family: 'Poppins', sans-serif;
     font-size: 1.5rem;
     text-align: center;
     margin: 20px 0;
 }
 
 .cart-link {
+    font-family: 'Poppins', sans-serif;
     display: block;
     text-align: center;
     font-size: 1rem;
@@ -85,6 +89,7 @@ h2 {
 }
 
 .remove-item {
+    font-family: 'Poppins', sans-serif;
     background-color: #dc3545;
     color: #fff;
     border: none;
